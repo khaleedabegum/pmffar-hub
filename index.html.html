@@ -1,0 +1,1106 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>PMFFar Hub</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+<style>
+:root {
+  --primary: #1a3a5c;
+  --primary-light: #2a5298;
+  --accent: #c8973a;
+  --bg: #f5f7fa;
+  --surface: #ffffff;
+  --border: #e2e8f0;
+  --fg: #1a202c;
+  --fg-muted: #64748b;
+  --fg-light: #94a3b8;
+  --success: #16a34a;
+  --danger: #dc2626;
+  --warning: #d97706;
+  --radius: 10px;
+  --shadow: 0 1px 4px rgba(0,0,0,0.08), 0 2px 8px rgba(0,0,0,0.04);
+  --shadow-lg: 0 4px 20px rgba(0,0,0,0.12);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --primary: #2a5298;
+    --primary-light: #3b6fd4;
+    --accent: #e0aa50;
+    --bg: #0f172a;
+    --surface: #1e293b;
+    --border: #334155;
+    --fg: #f1f5f9;
+    --fg-muted: #94a3b8;
+    --fg-light: #64748b;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --primary: #2a5298;
+  --primary-light: #3b6fd4;
+  --accent: #e0aa50;
+  --bg: #0f172a;
+  --surface: #1e293b;
+  --border: #334155;
+  --fg: #f1f5f9;
+  --fg-muted: #94a3b8;
+  --fg-light: #64748b;
+  color-scheme: dark;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--fg);min-height:100vh;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0}
+
+/* NAV */
+.topbar{position:sticky;top:0;z-index:100;background:var(--primary);color:#fff;padding:0 24px;display:flex;align-items:center;gap:16px;height:56px;box-shadow:0 2px 8px rgba(0,0,0,0.2)}
+.topbar-logo{font-size:1.1rem;font-weight:700;letter-spacing:-.01em;white-space:nowrap}
+.topbar-logo span{color:var(--accent)}
+.topbar-nav{display:flex;gap:4px;overflow-x:auto;flex:1;scrollbar-width:none}
+.topbar-nav::-webkit-scrollbar{display:none}
+.nav-btn{background:transparent;border:none;color:rgba(255,255,255,.75);font-family:inherit;font-size:.8rem;font-weight:500;padding:6px 12px;border-radius:6px;cursor:pointer;white-space:nowrap;transition:background .15s,color .15s}
+.nav-btn:hover,.nav-btn.active{background:rgba(255,255,255,.15);color:#fff}
+.theme-btn{margin-left:auto;background:transparent;border:none;color:rgba(255,255,255,.75);cursor:pointer;padding:6px;border-radius:6px;font-size:1rem}
+
+/* PAGES */
+.page{display:none;padding:24px 0 48px;max-width:860px;margin:0 auto}
+.page.active{display:block}
+
+/* HOME */
+.home-header{text-align:center;padding:40px 0 32px}
+.home-header h1{font-size:2rem;font-weight:700;color:var(--primary)}
+.home-header p{color:var(--fg-muted);margin-top:8px}
+.feature-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px}
+.feature-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px;cursor:pointer;transition:box-shadow .2s,transform .15s;text-align:center}
+.feature-card:hover{box-shadow:var(--shadow-lg);transform:translateY(-2px)}
+.feature-icon{font-size:2rem;margin-bottom:12px}
+.feature-card h3{font-size:.95rem;font-weight:600;margin-bottom:4px}
+.feature-card p{font-size:.8rem;color:var(--fg-muted)}
+
+/* SECTION HEADER */
+.section-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}
+.section-header h2{font-size:1.2rem;font-weight:700}
+.badge{display:inline-flex;align-items:center;gap:4px;font-size:.75rem;font-weight:600;padding:3px 10px;border-radius:20px;background:var(--primary);color:#fff}
+
+/* CARDS & FORMS */
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);margin-bottom:16px}
+.card-title{font-size:1rem;font-weight:600;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--border)}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
+.form-row.single{grid-template-columns:1fr}
+.form-row.triple{grid-template-columns:1fr 1fr 1fr}
+.form-group{display:flex;flex-direction:column;gap:4px}
+label{font-size:.8rem;font-weight:500;color:var(--fg-muted)}
+input,textarea,select{width:100%;padding:9px 12px;border:1px solid var(--border);border-radius:7px;background:var(--bg);color:var(--fg);font-family:inherit;font-size:.875rem;transition:border-color .15s}
+input:focus,textarea:focus,select:focus{outline:none;border-color:var(--primary-light)}
+textarea{resize:vertical;min-height:80px}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:9px 18px;border-radius:7px;border:none;font-family:inherit;font-size:.875rem;font-weight:500;cursor:pointer;transition:opacity .15s,transform .1s}
+.btn:active{transform:scale(.97)}
+.btn-primary{background:var(--primary);color:#fff}
+.btn-primary:hover{opacity:.88}
+.btn-accent{background:var(--accent);color:#fff}
+.btn-accent:hover{opacity:.88}
+.btn-outline{background:transparent;color:var(--fg);border:1px solid var(--border)}
+.btn-outline:hover{background:var(--border)}
+.btn-danger{background:var(--danger);color:#fff}
+.btn-sm{padding:5px 12px;font-size:.8rem}
+.btn-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+
+/* TABLE */
+.table-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:.875rem}
+th{background:var(--primary);color:#fff;padding:10px 12px;text-align:left;font-weight:600}
+td{padding:9px 12px;border-bottom:1px solid var(--border)}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:var(--bg)}
+td input{padding:4px 8px;font-size:.8rem}
+.total-row td{font-weight:700;background:var(--bg)}
+
+/* STATUS */
+.status{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:20px;font-size:.75rem;font-weight:600}
+.status-draft{background:#fef3c7;color:#92400e}
+.status-submitted{background:#dbeafe;color:#1e40af}
+.status-approved{background:#dcfce7;color:#15803d}
+.status-returned{background:#fee2e2;color:#991b1b}
+
+/* LETTER PREVIEW */
+.letter-preview{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:32px;font-size:.875rem;line-height:1.8;white-space:pre-wrap;font-family:'Times New Roman',serif;min-height:200px}
+.letter-preview .lh{text-align:center;margin-bottom:24px;border-bottom:3px double var(--primary);padding-bottom:16px}
+.letter-preview .lh-name{font-size:1.1rem;font-weight:700;color:var(--primary);letter-spacing:.05em}
+.letter-preview .lh-sub{font-size:.8rem;color:var(--fg-muted)}
+
+/* CALENDAR */
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-top:12px}
+.cal-header-cell{text-align:center;font-size:.75rem;font-weight:600;color:var(--fg-muted);padding:8px 0}
+.cal-cell{min-height:72px;background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:6px;font-size:.75rem;cursor:pointer;transition:background .15s}
+.cal-cell:hover{background:var(--bg)}
+.cal-cell.today{border-color:var(--primary);border-width:2px}
+.cal-cell.other-month{opacity:.4}
+.cal-day{font-weight:600;margin-bottom:2px}
+.cal-event{background:var(--primary);color:#fff;border-radius:3px;padding:1px 4px;margin-bottom:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:.7rem}
+.cal-nav{display:flex;align-items:center;gap:12px}
+.cal-nav h3{flex:1;text-align:center;font-weight:600}
+
+/* PYQ */
+.pyq-filter{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.pyq-tag{padding:5px 14px;border-radius:20px;border:1px solid var(--border);background:var(--surface);font-size:.8rem;cursor:pointer;transition:background .15s,border-color .15s}
+.pyq-tag.active{background:var(--primary);color:#fff;border-color:var(--primary)}
+.pyq-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px;display:flex;align-items:center;gap:12px;margin-bottom:10px}
+.pyq-icon{font-size:1.5rem;flex-shrink:0}
+.pyq-info{flex:1;min-width:0}
+.pyq-info h4{font-size:.9rem;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pyq-info p{font-size:.75rem;color:var(--fg-muted);margin-top:2px}
+
+/* TOAST */
+.toast{position:fixed;bottom:max(24px,env(safe-area-inset-bottom,0px));left:50%;transform:translateX(-50%) translateY(80px);background:var(--fg);color:var(--bg);padding:10px 20px;border-radius:20px;font-size:.85rem;font-weight:500;transition:transform .3s cubic-bezier(.34,1.56,.64,1);z-index:200;white-space:nowrap;pointer-events:none}
+.toast.show{transform:translateX(-50%) translateY(0)}
+
+/* ARCHIVE */
+.archive-item{display:flex;align-items:center;gap:12px;padding:14px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);margin-bottom:10px}
+.archive-icon{font-size:1.4rem;flex-shrink:0}
+.archive-info{flex:1;min-width:0}
+.archive-info h4{font-size:.9rem;font-weight:600}
+.archive-info p{font-size:.75rem;color:var(--fg-muted);margin-top:2px}
+
+/* EXPENSE TABLE */
+.expense-add-row{display:grid;grid-template-columns:2fr 1fr 1fr auto;gap:8px;align-items:end;margin-bottom:12px}
+
+@media(max-width:600px){
+  .form-row{grid-template-columns:1fr}
+  .form-row.triple{grid-template-columns:1fr 1fr}
+  .feature-grid{grid-template-columns:1fr 1fr}
+  .expense-add-row{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-logo">PMFFar<span>Hub</span></div>
+  <nav class="topbar-nav">
+    <button class="nav-btn active" onclick="showPage('home')">🏠 Utama</button>
+    <button class="nav-btn" onclick="showPage('surat')">✉️ Jana Surat</button>
+    <button class="nav-btn" onclick="showPage('kertas')">📋 Kertas Kerja</button>
+    <button class="nav-btn" onclick="showPage('kewangan')">💰 Lap. Kewangan</button>
+    <button class="nav-btn" onclick="showPage('arkib')">🗂️ Arkib</button>
+    <button class="nav-btn" onclick="showPage('kalender')">📅 Kalendar</button>
+    <button class="nav-btn" onclick="showPage('pyq')">📚 Soalan Lepas</button>
+  </nav>
+  <button class="theme-btn" onclick="toggleTheme()" title="Tukar tema">🌙</button>
+</div>
+
+<!-- HOME -->
+<div class="page active" id="page-home">
+  <div class="home-header">
+    <h1>PMFFar Hub</h1>
+    <p>Persatuan Mahasiswa Fakulti Farmasi UKM — Portal Pengurusan</p>
+  </div>
+  <div class="feature-grid">
+    <div class="feature-card" onclick="showPage('surat')">
+      <div class="feature-icon">✉️</div>
+      <h3>Jana Surat</h3>
+      <p>Surat penajaan, jemputan & lebih lagi</p>
+    </div>
+    <div class="feature-card" onclick="showPage('kertas')">
+      <div class="feature-icon">📋</div>
+      <h3>Kertas Kerja</h3>
+      <p>Jana kertas kerja program automatik</p>
+    </div>
+    <div class="feature-card" onclick="showPage('kewangan')">
+      <div class="feature-icon">💰</div>
+      <h3>Laporan Kewangan</h3>
+      <p>Kira automatik + muat naik resit</p>
+    </div>
+    <div class="feature-card" onclick="showPage('arkib')">
+      <div class="feature-icon">🗂️</div>
+      <h3>Arkib Dokumen</h3>
+      <p>Semua dokumen tersimpan & boleh dicari</p>
+    </div>
+    <div class="feature-card" onclick="showPage('kalender')">
+      <div class="feature-icon">📅</div>
+      <h3>Kalendar Program</h3>
+      <p>Jadual acara tahunan PMFFar</p>
+    </div>
+    <div class="feature-card" onclick="showPage('pyq')">
+      <div class="feature-icon">📚</div>
+      <h3>Soalan Lepas</h3>
+      <p>Bank soalan peperiksaan lepas</p>
+    </div>
+  </div>
+</div>
+
+<!-- SURAT -->
+<div class="page" id="page-surat">
+  <div class="section-header">
+    <h2>✉️ Jana Surat</h2>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Maklumat Surat</div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Jenis Surat</label>
+        <select id="s-jenis" onchange="updateSuratTemplate()">
+          <option value="penajaan">Mohon Penajaan</option>
+          <option value="jemputan">Jemputan Jemputan Umum</option>
+          <option value="kewangan_req">Mohon Laporan Kewangan</option>
+          <option value="bayar_balik">Bayar Balik (Claim)</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>No. Rujukan</label>
+        <input type="text" id="s-rujukan" placeholder="cth: UKMPMFFar/01/OPKIM/01/03">
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Tarikh Surat</label>
+        <input type="date" id="s-tarikh">
+      </div>
+      <div class="form-group">
+        <label>Nama Penerima / Syarikat</label>
+        <input type="text" id="s-penerima" placeholder="cth: Syarikat ABC Sdn Bhd">
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Alamat Penerima (Baris 1)</label>
+        <input type="text" id="s-alamat1" placeholder="Alamat 1">
+      </div>
+      <div class="form-group">
+        <label>Alamat Penerima (Baris 2)</label>
+        <input type="text" id="s-alamat2" placeholder="Alamat 2">
+      </div>
+    </div>
+    <div class="form-row single">
+      <div class="form-group">
+        <label>Alamat Penerima (Baris 3)</label>
+        <input type="text" id="s-alamat3" placeholder="Poskod, Negeri">
+      </div>
+    </div>
+    <hr style="border:none;border-top:1px solid var(--border);margin:16px 0">
+    <div class="form-row">
+      <div class="form-group">
+        <label>Nama Program</label>
+        <input type="text" id="s-program" placeholder="cth: Operasi Khidmat Masyarakat (OPKIM) 2026">
+      </div>
+      <div class="form-group">
+        <label>Tarikh Program</label>
+        <input type="text" id="s-tarikh-prog" placeholder="cth: 2 - 6 Mei 2026">
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Masa Program</label>
+        <input type="text" id="s-masa" placeholder="cth: 8:00 pagi - 11:00 malam">
+      </div>
+      <div class="form-group">
+        <label>Tempat Program</label>
+        <input type="text" id="s-tempat" placeholder="cth: Felda Wilayah Raja Alias, N9">
+      </div>
+    </div>
+    <div class="form-row single">
+      <div class="form-group">
+        <label>Tema Program</label>
+        <input type="text" id="s-tema" placeholder="cth: Khidmat Dihulur, Kasih Dikongsi">
+      </div>
+    </div>
+    <hr style="border:none;border-top:1px solid var(--border);margin:16px 0">
+    <div class="form-row">
+      <div class="form-group">
+        <label>Nama Pengarah Program</label>
+        <input type="text" id="s-pengarah" placeholder="Nama penuh">
+      </div>
+      <div class="form-group">
+        <label>No. Tel Pengarah</label>
+        <input type="text" id="s-tel-pengarah" placeholder="cth: 019-1234567">
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>E-mel Pengarah</label>
+        <input type="text" id="s-emel-pengarah" placeholder="cth: a195831@siswa.ukm.edu.my">
+      </div>
+      <div class="form-group">
+        <label>Nama PIC Penajaan (jika ada)</label>
+        <input type="text" id="s-pic" placeholder="Nama PIC Exco Penajaan">
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>No. Tel PIC</label>
+        <input type="text" id="s-tel-pic" placeholder="cth: 011-23841649">
+      </div>
+      <div class="form-group">
+        <label>E-mel PIC</label>
+        <input type="text" id="s-emel-pic" placeholder="cth: ukm.opkim@gmail.com">
+      </div>
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-primary" onclick="previewSurat()">👁 Pratonton Surat</button>
+      <button class="btn btn-accent" onclick="cetakSurat()">🖨️ Cetak / Simpan PDF</button>
+      <button class="btn btn-outline" onclick="simpanArkib('surat')">🗂️ Simpan ke Arkib</button>
+    </div>
+  </div>
+
+  <div class="card" id="surat-preview-card" style="display:none">
+    <div class="card-title">Pratonton Surat</div>
+    <div class="letter-preview" id="surat-preview-content"></div>
+  </div>
+</div>
+
+<!-- KERTAS KERJA -->
+<div class="page" id="page-kertas">
+  <div class="section-header">
+    <h2>📋 Kertas Kerja Program</h2>
+  </div>
+  <div class="card">
+    <div class="card-title">1.0 Maklumat Program</div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Nama Program</label>
+        <input type="text" id="k-nama" placeholder="cth: Program OPKIM 2026">
+      </div>
+      <div class="form-group">
+        <label>Kertas Bil. / Tahun</label>
+        <input type="text" id="k-bil" placeholder="cth: 1/2026">
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Tarikh Program</label>
+        <input type="text" id="k-tarikh" placeholder="cth: 2 Mei - 6 Mei 2026">
+      </div>
+      <div class="form-group">
+        <label>Tempat</label>
+        <input type="text" id="k-tempat" placeholder="cth: Felda Wilayah Raja Alias, N9">
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Tema</label>
+        <input type="text" id="k-tema" placeholder="cth: Khidmat Dihulur, Kasih Dikongsi">
+      </div>
+      <div class="form-group">
+        <label>Bilangan Peserta</label>
+        <input type="number" id="k-peserta" placeholder="cth: 69">
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">2.0 Latar Belakang & Objektif</div>
+    <div class="form-row single">
+      <div class="form-group">
+        <label>Latar Belakang Program</label>
+        <textarea id="k-latar" rows="4" placeholder="Huraikan latar belakang dan kepentingan program ini..."></textarea>
+      </div>
+    </div>
+    <div class="form-row single">
+      <div class="form-group">
+        <label>Objektif Program (satu baris satu objektif)</label>
+        <textarea id="k-objektif" rows="4" placeholder="Meningkatkan kesedaran masyarakat...&#10;Menyediakan platform kepada mahasiswa...&#10;Mengeratkan hubungan..."></textarea>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">3.0 Atur Cara Program</div>
+    <div id="aturcara-rows"></div>
+    <button class="btn btn-outline btn-sm" onclick="addAturCara()">+ Tambah Aktiviti</button>
+  </div>
+
+  <div class="card">
+    <div class="card-title">4.0 Anggaran Belanjawan</div>
+    <p style="font-size:.8rem;color:var(--fg-muted);margin-bottom:12px">Pendapatan</p>
+    <div id="pendapatan-rows"></div>
+    <button class="btn btn-outline btn-sm" onclick="addPendapatan()">+ Tambah Sumber Pendapatan</button>
+    <p style="font-size:.8rem;color:var(--fg-muted);margin:16px 0 8px">Perbelanjaan (Anggaran)</p>
+    <div id="belanja-kertas-rows"></div>
+    <button class="btn btn-outline btn-sm" onclick="addBelanjaCadangan()">+ Tambah Kategori Perbelanjaan</button>
+  </div>
+
+  <div class="card">
+    <div class="card-title">5.0 Disediakan & Disemak Oleh</div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Disediakan oleh (Nama Yang Dipertua)</label>
+        <input type="text" id="k-ydp" value="Khaleeda Begum Binti Kamaluddin" placeholder="Nama penuh">
+      </div>
+      <div class="form-group">
+        <label>Jawatan</label>
+        <input type="text" id="k-ydp-jawatan" value="Yang Dipertua PMFFar Sesi 2025/2026">
+      </div>
+    </div>
+    <div class="form-row single">
+      <div class="form-group">
+        <label>Pensyarah Pemantau (satu nama satu baris)</label>
+        <textarea id="k-pensyarah" rows="3" placeholder="Dr. Nor Asyikin Binti Mohd Tahir&#10;Dr. Adliah Binti Mhd Ali"></textarea>
+      </div>
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-primary" onclick="previewKertas()">👁 Pratonton</button>
+      <button class="btn btn-accent" onclick="cetakKertas()">🖨️ Cetak / PDF</button>
+      <button class="btn btn-outline" onclick="simpanArkib('kertas')">🗂️ Simpan ke Arkib</button>
+    </div>
+  </div>
+</div>
+
+<!-- KEWANGAN -->
+<div class="page" id="page-kewangan">
+  <div class="section-header">
+    <h2>💰 Laporan Kewangan</h2>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Maklumat Program</div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Nama Program</label>
+        <input type="text" id="lk-nama" placeholder="cth: Program Mobiliti Brawijaya 25/26">
+      </div>
+      <div class="form-group">
+        <label>Tarikh</label>
+        <input type="text" id="lk-tarikh" placeholder="cth: 03 Ogos - 14 Ogos 2026">
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Tempat</label>
+        <input type="text" id="lk-tempat" placeholder="cth: Universitas Brawijaya, Indonesia">
+      </div>
+      <div class="form-group">
+        <label>Tema</label>
+        <input type="text" id="lk-tema" placeholder="cth: Menghubungkan Minda Merentasi Budaya">
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Pendapatan</div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Perkara</th><th>Amaun (RM)</th><th></th></tr></thead>
+        <tbody id="pendapatan-lk-body"></tbody>
+        <tfoot><tr class="total-row"><td>Jumlah Pendapatan (RM)</td><td id="total-pendapatan-lk">0.00</td><td></td></tr></tfoot>
+      </table>
+    </div>
+    <button class="btn btn-outline btn-sm" style="margin-top:8px" onclick="addPendapatanLK()">+ Tambah</button>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Perbelanjaan — Ringkasan</div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Jenis Perbelanjaan</th><th>Amaun (RM)</th><th></th></tr></thead>
+        <tbody id="belanja-summary-body"></tbody>
+        <tfoot><tr class="total-row"><td>Jumlah Perbelanjaan (RM)</td><td id="total-belanja-lk">0.00</td><td></td></tr></tfoot>
+      </table>
+    </div>
+    <button class="btn btn-outline btn-sm" style="margin-top:8px" onclick="addBelanjaSummary()">+ Tambah Kategori</button>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Butiran Perbelanjaan (Lampiran)</div>
+    <p style="font-size:.8rem;color:var(--fg-muted);margin-bottom:12px">Setiap baris = satu resit. Muat naik gambar resit untuk lampiran.</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Bil.</th><th>Tarikh</th><th>Perkara</th><th>No. Resit</th><th>Perincian</th><th>Jumlah (RM)</th><th>Resit</th><th></th></tr></thead>
+        <tbody id="butiran-body"></tbody>
+      </table>
+    </div>
+    <button class="btn btn-outline btn-sm" style="margin-top:8px" onclick="addButiran()">+ Tambah Resit</button>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Ringkasan</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;text-align:center">
+      <div style="padding:16px;background:var(--bg);border-radius:8px">
+        <div style="font-size:.8rem;color:var(--fg-muted)">Jumlah Pendapatan</div>
+        <div style="font-size:1.3rem;font-weight:700;color:var(--success)" id="summary-pendapatan">RM 0.00</div>
+      </div>
+      <div style="padding:16px;background:var(--bg);border-radius:8px">
+        <div style="font-size:.8rem;color:var(--fg-muted)">Jumlah Perbelanjaan</div>
+        <div style="font-size:1.3rem;font-weight:700;color:var(--danger)" id="summary-belanja">RM 0.00</div>
+      </div>
+      <div style="padding:16px;background:var(--bg);border-radius:8px">
+        <div style="font-size:.8rem;color:var(--fg-muted)">Lebihan / Kurangan</div>
+        <div style="font-size:1.3rem;font-weight:700" id="summary-balance">RM 0.00</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Disediakan & Disahkan</div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Ketua Pengarah Projek</label>
+        <input type="text" id="lk-pengarah" placeholder="Nama penuh">
+      </div>
+      <div class="form-group">
+        <label>Pensyarah Penasihat</label>
+        <input type="text" id="lk-penasihat" placeholder="Nama penuh">
+      </div>
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-primary" onclick="previewLK()">👁 Pratonton</button>
+      <button class="btn btn-accent" onclick="cetakLK()">🖨️ Cetak / PDF</button>
+      <button class="btn btn-outline" onclick="simpanArkib('kewangan')">🗂️ Simpan ke Arkib</button>
+    </div>
+  </div>
+</div>
+
+<!-- ARKIB -->
+<div class="page" id="page-arkib">
+  <div class="section-header">
+    <h2>🗂️ Arkib Dokumen</h2>
+    <div style="display:flex;gap:8px">
+      <input type="text" id="arkib-search" placeholder="Cari dokumen..." style="width:200px" oninput="filterArkib()">
+    </div>
+  </div>
+  <div style="display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap">
+    <button class="pyq-tag active" onclick="filterArkibType('semua',this)">Semua</button>
+    <button class="pyq-tag" onclick="filterArkibType('surat',this)">Surat</button>
+    <button class="pyq-tag" onclick="filterArkibType('kertas',this)">Kertas Kerja</button>
+    <button class="pyq-tag" onclick="filterArkibType('kewangan',this)">Lap. Kewangan</button>
+  </div>
+  <div id="arkib-list">
+    <p style="color:var(--fg-muted);text-align:center;padding:40px 0">Tiada dokumen disimpan lagi. Jana dokumen dan klik "Simpan ke Arkib".</p>
+  </div>
+</div>
+
+<!-- KALENDER -->
+<div class="page" id="page-kalender">
+  <div class="section-header">
+    <h2>📅 Kalendar Program</h2>
+    <button class="btn btn-primary btn-sm" onclick="openAddEvent()">+ Tambah Acara</button>
+  </div>
+  <div class="card">
+    <div class="cal-nav" style="margin-bottom:16px">
+      <button class="btn btn-outline btn-sm" onclick="changeMonth(-1)">‹ Prev</button>
+      <h3 id="cal-month-label"></h3>
+      <button class="btn btn-outline btn-sm" onclick="changeMonth(1)">Next ›</button>
+    </div>
+    <div class="cal-grid">
+      <div class="cal-header-cell">Ahd</div>
+      <div class="cal-header-cell">Isn</div>
+      <div class="cal-header-cell">Sel</div>
+      <div class="cal-header-cell">Rab</div>
+      <div class="cal-header-cell">Kha</div>
+      <div class="cal-header-cell">Jum</div>
+      <div class="cal-header-cell">Sab</div>
+    </div>
+    <div class="cal-grid" id="cal-body"></div>
+  </div>
+
+  <!-- Add Event Modal -->
+  <div id="event-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:150;display:none;align-items:center;justify-content:center;padding:16px">
+    <div class="card" style="width:100%;max-width:400px;margin:0">
+      <div class="card-title">Tambah Acara</div>
+      <div class="form-group" style="margin-bottom:12px">
+        <label>Nama Acara</label>
+        <input type="text" id="ev-nama" placeholder="cth: Mesyuarat Agung">
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Tarikh Mula</label>
+          <input type="date" id="ev-mula">
+        </div>
+        <div class="form-group">
+          <label>Tarikh Tamat</label>
+          <input type="date" id="ev-tamat">
+        </div>
+      </div>
+      <div class="form-group" style="margin-top:8px">
+        <label>Tempat</label>
+        <input type="text" id="ev-tempat" placeholder="cth: Dewan Kuliah A">
+      </div>
+      <div class="btn-row">
+        <button class="btn btn-primary" onclick="saveEvent()">Simpan</button>
+        <button class="btn btn-outline" onclick="closeEventModal()">Batal</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PYQ -->
+<div class="page" id="page-pyq">
+  <div class="section-header">
+    <h2>📚 Soalan Peperiksaan Lepas</h2>
+    <label class="btn btn-primary btn-sm" style="cursor:pointer">
+      + Muat Naik
+      <input type="file" id="pyq-upload" accept=".pdf,.doc,.docx,.png,.jpg" style="display:none" onchange="uploadPYQ()">
+    </label>
+  </div>
+  <div class="card" style="padding:16px">
+    <div class="form-row" style="margin-bottom:0">
+      <div class="form-group">
+        <label>Kod Kursus</label>
+        <input type="text" id="pyq-kod" placeholder="cth: FKDF3013">
+      </div>
+      <div class="form-group">
+        <label>Nama Subjek</label>
+        <input type="text" id="pyq-subjek" placeholder="cth: Farmakokinetik Klinikal">
+      </div>
+    </div>
+    <div class="form-row" style="margin-bottom:0">
+      <div class="form-group">
+        <label>Tahun Peperiksaan</label>
+        <input type="text" id="pyq-tahun" placeholder="cth: 2024/2025">
+      </div>
+      <div class="form-group">
+        <label>Semester</label>
+        <select id="pyq-sem">
+          <option>Semester 1</option>
+          <option>Semester 2</option>
+          <option>Semester 3</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <div class="pyq-filter" id="pyq-tags">
+    <button class="pyq-tag active" onclick="filterPYQ('semua',this)">Semua</button>
+  </div>
+
+  <div id="pyq-list">
+    <p style="color:var(--fg-muted);text-align:center;padding:40px 0">Tiada soalan dimuat naik lagi.</p>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ---- STATE ----
+let currentPage = 'home';
+let aturCaraRows = [];
+let pendapatanRows = [];
+let belajaCadanganRows = [];
+let pendapatanLKRows = [];
+let belanjaSummaryRows = [];
+let butiranRows = [];
+let events = [];
+let calYear, calMonth;
+let arkibDocs = [];
+let pyqFiles = [];
+let arkibTypeFilter = 'semua';
+const SB_URL = 'YOUR_SUPABASE_URL';
+const SB_KEY = 'YOUR_SUPABASE_KEY';
+
+// ---- INIT ----
+window.onload = () => {
+  const today = new Date();
+  calYear = today.getFullYear();
+  calMonth = today.getMonth();
+  document.getElementById('s-tarikh').value = today.toISOString().split('T')[0];
+  renderCalendar();
+  loadFromStorage();
+  addDefaultRows();
+};
+
+function loadFromStorage() {
+  try {
+    events = JSON.parse(localStorage.getItem('pmffar_events') || '[]');
+    arkibDocs = JSON.parse(localStorage.getItem('pmffar_arkib') || '[]');
+    pyqFiles = JSON.parse(localStorage.getItem('pmffar_pyq') || '[]');
+    renderArkib();
+    renderPYQ();
+    renderCalendar();
+  } catch(e) {}
+}
+
+function addDefaultRows() {
+  addAturCara(); addAturCara();
+  addPendapatan(); addPendapatan();
+  addBelanjaCadangan(); addBelanjaCadangan();
+  addPendapatanLK(); addPendapatanLK();
+  addBelanjaSummary(); addBelanjaSummary();
+  addButiran(); addButiran();
+}
+
+// ---- NAV ----
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('page-' + id).classList.add('active');
+  const idx = ['home','surat','kertas','kewangan','arkib','kalender','pyq'].indexOf(id);
+  document.querySelectorAll('.nav-btn')[idx]?.classList.add('active');
+  currentPage = id;
+  if (id === 'kalender') renderCalendar();
+}
+
+function toggleTheme() {
+  const root = document.documentElement;
+  const cur = root.getAttribute('data-theme');
+  root.setAttribute('data-theme', cur === 'dark' ? 'light' : 'dark');
+}
+
+// ---- TOAST ----
+let toastTimer;
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 2600);
+}
+
+// ---- SURAT ----
+function getVal(id) { return document.getElementById(id)?.value.trim() || ''; }
+
+function previewSurat() {
+  const jenis = getVal('s-jenis');
+  const tarikh = getVal('s-tarikh') ? new Date(getVal('s-tarikh')).toLocaleDateString('ms-MY',{day:'numeric',month:'long',year:'numeric'}) : '___________';
+  const rujukan = getVal('s-rujukan') || 'UKMPMFFar/___/_____';
+  const penerima = getVal('s-penerima') || '[Nama Syarikat / Penerima]';
+  const a1 = getVal('s-alamat1') || '[Alamat 1]';
+  const a2 = getVal('s-alamat2') || '[Alamat 2]';
+  const a3 = getVal('s-alamat3') || '[Alamat 3]';
+  const prog = getVal('s-program') || '[Nama Program]';
+  const tarikhProg = getVal('s-tarikh-prog') || '[Tarikh Program]';
+  const masa = getVal('s-masa') || '[Masa]';
+  const tempat = getVal('s-tempat') || '[Tempat]';
+  const tema = getVal('s-tema') || '[Tema]';
+  const pengarah = getVal('s-pengarah') || '[Nama Pengarah]';
+  const telPengarah = getVal('s-tel-pengarah') || '[No. Tel]';
+  const emelPengarah = getVal('s-emel-pengarah') || '[E-mel]';
+  const pic = getVal('s-pic') || pengarah;
+  const telPic = getVal('s-tel-pic') || telPengarah;
+  const emelPic = getVal('s-emel-pic') || emelPengarah;
+
+  const tajuk = {
+    penajaan: `MEMOHON PENAJAAN SERTA SUMBANGAN ${prog.toUpperCase()}`,
+    jemputan: `JEMPUTAN MENGHADIRI ${prog.toUpperCase()}`,
+    kewangan_req: `PERMOHONAN LAPORAN KEWANGAN ${prog.toUpperCase()}`,
+    bayar_balik: `PERMOHONAN BAYAR BALIK (CLAIM) ${prog.toUpperCase()}`
+  }[jenis];
+
+  const bodyText = {
+    penajaan: `2. Sukacita dimaklumkan bahawa Persatuan Mahasiswa Fakulti Farmasi (PMFFar) Universiti Kebangsaan Malaysia akan menganjurkan program seperti ketetapan berikut:\n\n    Program   : ${prog}\n    Tarikh    : ${tarikhProg}\n    Masa      : ${masa}\n    Tempat    : ${tempat}\n    Tema      : ${tema}\n\n3. Untuk makluman, program ini bertujuan memberi pendedahan dan khidmat kepada masyarakat serta mengaplikasikan ilmu pengetahuan mahasiswa/i Fakulti Farmasi.\n\n4. Pihak kami amat berbesar hati sekiranya pihak Tuan/Puan sudi menghulurkan sumbangan tajaan berbentuk wang tunai atau barangan bagi menjayakan program ini.\n\n5. Sekiranya Tuan/Puan mempunyai sebarang pertanyaan, boleh berhubung dengan ${pic} di talian ${telPic} atau e-mel ke ${emelPic}.\n\n6. Kami amat berharap agar pihak Tuan/Puan dapat mempertimbangkan dan meluluskan permohonan ini.`,
+    jemputan: `2. Sukacita dimaklumkan bahawa PMFFar UKM akan menganjurkan ${prog} seperti berikut:\n\n    Program   : ${prog}\n    Tarikh    : ${tarikhProg}\n    Masa      : ${masa}\n    Tempat    : ${tempat}\n    Tema      : ${tema}\n\n3. Pihak kami amat berbesar hati menjemput Tuan/Puan hadir bagi meriahkan program ini.\n\n4. Sekiranya ada pertanyaan, hubungi ${pic} di ${telPic} atau ${emelPic}.`,
+    kewangan_req: `2. Sukacita dimaklumkan bahawa PMFFar UKM telah selesai melaksanakan ${prog} pada ${tarikhProg} di ${tempat}.\n\n3. Sehubungan itu, kami memohon agar pihak Tuan/Puan dapat mengeluarkan laporan kewangan berkaitan program tersebut untuk tujuan rekod dan audit.\n\n4. Sebarang pertanyaan, sila hubungi ${pic} di ${telPic} atau ${emelPic}.`,
+    bayar_balik: `2. Sukacita dimaklumkan bahawa PMFFar UKM telah selesai melaksanakan ${prog} pada ${tarikhProg}.\n\n3. Sehubungan itu, kami memohon agar pihak Tuan/Puan dapat memproses tuntutan bayar balik bagi perbelanjaan yang telah dikeluarkan. Dokumen sokongan dan resit dilampirkan bersama surat ini.\n\n4. Sebarang pertanyaan, sila hubungi ${pengarah} di ${telPengarah} atau ${emelPengarah}.`
+  }[jenis];
+
+  const html = `<div class="lh">
+    <div style="font-size:1rem;font-weight:700;letter-spacing:.05em">PERSATUAN MAHASISWA FAKULTI FARMASI PMFFAR</div>
+    <div style="font-size:.8rem">FAKULTI FARMASI, UNIVERSITI KEBANGSAAN MALAYSIA</div>
+    <div style="font-size:.8rem">JALAN RAJA MUDA ABDUL AZIZ, 50300 KUALA LUMPUR</div>
+    <div style="font-size:.8rem;margin-top:4px">TEL: 603-9289 7265 &nbsp;|&nbsp; FAKS: 603-26983271</div>
+  </div>
+  <div style="text-align:right;margin-bottom:16px">
+    <div>No. Rujukan : ${rujukan}</div>
+    <div>Tarikh : ${tarikh}</div>
+  </div>
+  <div style="margin-bottom:16px">
+    <strong>${penerima}</strong><br>${a1}<br>${a2}<br>${a3}
+    <br><br>Melalui:<br><strong>Prof. Dr. Mohd Makmor Bakry</strong><br>Dekan<br>Fakulti Farmasi<br>Universiti Kebangsaan Malaysia
+  </div>
+  Tuan/Puan,
+  <br><br>
+  <strong>${tajuk}</strong>
+  <br><br>
+  Dengan segala hormatnya perkara di atas adalah dirujuk.
+  <br><br>
+  ${bodyText.replace(/\n/g,'<br>')}
+  <br><br>
+  Segala kerjasama daripada pihak Tuan/Puan amat dihargai dan didahului dengan ucapan jutaan terima kasih.
+  <br><br>Sekian.
+  <br><br>Yang benar,
+  <br><br><br><br>
+  <strong>${pengarah.toUpperCase()}</strong><br>
+  Pengarah Program<br>${prog}<br>Fakulti Farmasi, UKM<br>No. Tel: ${telPengarah}<br>E-mel: ${emelPengarah}`;
+
+  document.getElementById('surat-preview-content').innerHTML = html;
+  document.getElementById('surat-preview-card').style.display = 'block';
+  document.getElementById('surat-preview-card').scrollIntoView({behavior:'smooth'});
+}
+
+function cetakSurat() {
+  previewSurat();
+  setTimeout(() => window.print(), 400);
+}
+
+// ---- KERTAS KERJA ROWS ----
+function addAturCara() {
+  const id = Date.now() + Math.random();
+  aturCaraRows.push(id);
+  const c = document.getElementById('aturcara-rows');
+  const d = document.createElement('div');
+  d.className = 'form-row triple';
+  d.id = 'ac-' + id;
+  d.style.alignItems = 'end';
+  d.innerHTML = `
+    <div class="form-group"><label>Tarikh/Masa</label><input type="text" placeholder="cth: 2 Mei 2026, 8:00 pagi"></div>
+    <div class="form-group"><label>Aktiviti</label><input type="text" placeholder="cth: Majlis Pembukaan"></div>
+    <div class="form-group"><label>Tempat</label><input type="text" placeholder="cth: Dewan FELDA"><br>
+    <button class="btn btn-outline btn-sm" onclick="document.getElementById('ac-${id}').remove()" style="width:100%;margin-top:4px">✕ Buang</button></div>`;
+  c.appendChild(d);
+}
+
+function addPendapatan() {
+  const c = document.getElementById('pendapatan-rows');
+  const d = document.createElement('div');
+  d.className = 'form-row';
+  d.style.alignItems = 'end';
+  d.innerHTML = `
+    <div class="form-group"><label>Nama Pembiaya</label><input type="text" placeholder="cth: Fakulti"></div>
+    <div class="form-group"><label>Amaun (RM)</label><input type="number" placeholder="0.00"><br>
+    <button class="btn btn-outline btn-sm" onclick="this.closest('.form-row').remove()" style="width:100%;margin-top:4px">✕</button></div>`;
+  c.appendChild(d);
+}
+
+function addBelanjaCadangan() {
+  const c = document.getElementById('belanja-kertas-rows');
+  const d = document.createElement('div');
+  d.className = 'form-row';
+  d.style.alignItems = 'end';
+  d.innerHTML = `
+    <div class="form-group"><label>Jenis Perbelanjaan</label><input type="text" placeholder="cth: Exco Klinikal"></div>
+    <div class="form-group"><label>Amaun (RM)</label><input type="number" placeholder="0.00"><br>
+    <button class="btn btn-outline btn-sm" onclick="this.closest('.form-row').remove()" style="width:100%;margin-top:4px">✕</button></div>`;
+  c.appendChild(d);
+}
+
+function previewKertas() {
+  const nama = getVal('k-nama') || '[Nama Program]';
+  showToast('Pratonton Kertas Kerja bersedia — tekan Cetak/PDF untuk simpan.');
+  window.print();
+}
+
+function cetakKertas() { window.print(); }
+
+// ---- LAPORAN KEWANGAN ----
+function addPendapatanLK() {
+  const tbody = document.getElementById('pendapatan-lk-body');
+  const tr = document.createElement('tr');
+  tr.innerHTML = `<td><input type="text" placeholder="cth: Tabung Mobiliti"></td>
+    <td><input type="number" step="0.01" placeholder="0.00" oninput="recalcLK()"></td>
+    <td><button class="btn btn-outline btn-sm" onclick="this.closest('tr').remove();recalcLK()">✕</button></td>`;
+  tbody.appendChild(tr);
+}
+
+function addBelanjaSummary() {
+  const tbody = document.getElementById('belanja-summary-body');
+  const tr = document.createElement('tr');
+  tr.innerHTML = `<td><input type="text" placeholder="cth: Tiket Penerbangan"></td>
+    <td><input type="number" step="0.01" placeholder="0.00" oninput="recalcLK()"></td>
+    <td><button class="btn btn-outline btn-sm" onclick="this.closest('tr').remove();recalcLK()">✕</button></td>`;
+  tbody.appendChild(tr);
+}
+
+let butiranCount = 0;
+function addButiran() {
+  butiranCount++;
+  const tbody = document.getElementById('butiran-body');
+  const tr = document.createElement('tr');
+  const id = 'resit-' + butiranCount;
+  tr.innerHTML = `<td>${butiranCount}</td>
+    <td><input type="date" style="width:120px"></td>
+    <td><input type="text" placeholder="cth: Tiket Penerbangan" style="width:150px"></td>
+    <td><input type="text" placeholder="No." style="width:60px"></td>
+    <td><input type="text" placeholder="cth: 1 x RM 1005" style="width:120px"></td>
+    <td><input type="number" step="0.01" placeholder="0.00" style="width:90px" oninput="recalcLK()"></td>
+    <td><label class="btn btn-outline btn-sm" style="cursor:pointer">📎<input type="file" id="${id}" accept="image/*,.pdf" style="display:none" onchange="showResitPreview(this,'${id}-preview')">
+    <span id="${id}-preview" style="font-size:.7rem;color:var(--success)"></span></label></td>
+    <td><button class="btn btn-outline btn-sm" onclick="this.closest('tr').remove();recalcLK()">✕</button></td>`;
+  tbody.appendChild(tr);
+}
+
+function showResitPreview(input, previewId) {
+  const el = document.getElementById(previewId);
+  if (input.files[0]) {
+    el.textContent = ' ✓ ' + input.files[0].name.substring(0,15);
+    showToast('Resit berjaya dilampirkan: ' + input.files[0].name);
+  }
+}
+
+function recalcLK() {
+  let totalIn = 0, totalOut = 0;
+  document.querySelectorAll('#pendapatan-lk-body input[type=number]').forEach(i => totalIn += parseFloat(i.value)||0);
+  document.querySelectorAll('#belanja-summary-body input[type=number]').forEach(i => totalOut += parseFloat(i.value)||0);
+  document.getElementById('total-pendapatan-lk').textContent = totalIn.toFixed(2);
+  document.getElementById('total-belanja-lk').textContent = totalOut.toFixed(2);
+  document.getElementById('summary-pendapatan').textContent = 'RM ' + totalIn.toFixed(2);
+  document.getElementById('summary-belanja').textContent = 'RM ' + totalOut.toFixed(2);
+  const bal = totalIn - totalOut;
+  const balEl = document.getElementById('summary-balance');
+  balEl.textContent = 'RM ' + Math.abs(bal).toFixed(2) + (bal < 0 ? ' (Kurangan)' : bal > 0 ? ' (Lebihan)' : '');
+  balEl.style.color = bal < 0 ? 'var(--danger)' : bal > 0 ? 'var(--success)' : 'var(--fg)';
+}
+
+function previewLK() { showToast('Pratonton LK — tekan Cetak/PDF untuk simpan.'); window.print(); }
+function cetakLK() { window.print(); }
+
+// ---- ARKIB ----
+function simpanArkib(jenis) {
+  let nama = '';
+  if (jenis === 'surat') nama = getVal('s-program') || 'Surat Tanpa Nama';
+  else if (jenis === 'kertas') nama = getVal('k-nama') || 'Kertas Kerja Tanpa Nama';
+  else if (jenis === 'kewangan') nama = getVal('lk-nama') || 'Laporan Kewangan Tanpa Nama';
+  const doc = { id: Date.now(), jenis, nama, tarikh: new Date().toLocaleDateString('ms-MY') };
+  arkibDocs.unshift(doc);
+  try { localStorage.setItem('pmffar_arkib', JSON.stringify(arkibDocs)); } catch(e) {}
+  renderArkib();
+  showToast('✓ Disimpan ke Arkib: ' + nama);
+}
+
+function renderArkib() {
+  const list = document.getElementById('arkib-list');
+  const search = document.getElementById('arkib-search')?.value.toLowerCase() || '';
+  const filtered = arkibDocs.filter(d =>
+    (arkibTypeFilter === 'semua' || d.jenis === arkibTypeFilter) &&
+    (!search || d.nama.toLowerCase().includes(search))
+  );
+  if (!filtered.length) {
+    list.innerHTML = '<p style="color:var(--fg-muted);text-align:center;padding:40px 0">Tiada dokumen dijumpai.</p>';
+    return;
+  }
+  const icons = {surat:'✉️',kertas:'📋',kewangan:'💰'};
+  const labels = {surat:'Surat',kertas:'Kertas Kerja',kewangan:'Lap. Kewangan'};
+  list.innerHTML = filtered.map(d => `
+    <div class="archive-item">
+      <div class="archive-icon">${icons[d.jenis]||'📄'}</div>
+      <div class="archive-info">
+        <h4>${d.nama}</h4>
+        <p>${labels[d.jenis]||d.jenis} · Disimpan: ${d.tarikh}</p>
+      </div>
+      <span class="status status-approved">Tersimpan</span>
+      <button class="btn btn-outline btn-sm" onclick="buangArkib(${d.id})">🗑️</button>
+    </div>`).join('');
+}
+
+function filterArkib() { renderArkib(); }
+function filterArkibType(type, btn) {
+  arkibTypeFilter = type;
+  document.querySelectorAll('#page-arkib .pyq-tag').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderArkib();
+}
+function buangArkib(id) {
+  arkibDocs = arkibDocs.filter(d => d.id !== id);
+  try { localStorage.setItem('pmffar_arkib', JSON.stringify(arkibDocs)); } catch(e) {}
+  renderArkib();
+  showToast('Dokumen dibuang dari arkib.');
+}
+
+// ---- CALENDAR ----
+const malay_months = ['Januari','Februari','Mac','April','Mei','Jun','Julai','Ogos','September','Oktober','November','Disember'];
+function renderCalendar() {
+  document.getElementById('cal-month-label').textContent = malay_months[calMonth] + ' ' + calYear;
+  const body = document.getElementById('cal-body');
+  body.innerHTML = '';
+  const first = new Date(calYear, calMonth, 1).getDay();
+  const days = new Date(calYear, calMonth+1, 0).getDate();
+  const today = new Date();
+  for (let i = 0; i < first; i++) {
+    const prevDays = new Date(calYear, calMonth, 0).getDate();
+    const d = document.createElement('div');
+    d.className = 'cal-cell other-month';
+    d.innerHTML = `<div class="cal-day">${prevDays - first + 1 + i}</div>`;
+    body.appendChild(d);
+  }
+  for (let d = 1; d <= days; d++) {
+    const cell = document.createElement('div');
+    const isToday = today.getFullYear()===calYear && today.getMonth()===calMonth && today.getDate()===d;
+    cell.className = 'cal-cell' + (isToday?' today':'');
+    const dateStr = `${calYear}-${String(calMonth+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+    const dayEvents = events.filter(e => e.mula <= dateStr && e.tamat >= dateStr);
+    cell.innerHTML = `<div class="cal-day">${d}</div>${dayEvents.map(e=>`<div class="cal-event" title="${e.nama}">${e.nama}</div>`).join('')}`;
+    body.appendChild(cell);
+  }
+}
+
+function changeMonth(dir) {
+  calMonth += dir;
+  if (calMonth > 11) { calMonth = 0; calYear++; }
+  if (calMonth < 0) { calMonth = 11; calYear--; }
+  renderCalendar();
+}
+
+function openAddEvent() {
+  const m = document.getElementById('event-modal');
+  m.style.display = 'flex';
+  const today = new Date().toISOString().split('T')[0];
+  document.getElementById('ev-mula').value = today;
+  document.getElementById('ev-tamat').value = today;
+}
+function closeEventModal() { document.getElementById('event-modal').style.display = 'none'; }
+function saveEvent() {
+  const nama = getVal('ev-nama');
+  const mula = getVal('ev-mula');
+  const tamat = getVal('ev-tamat');
+  if (!nama || !mula) { showToast('Sila isi nama dan tarikh acara.'); return; }
+  events.push({ id: Date.now(), nama, mula, tamat: tamat||mula, tempat: getVal('ev-tempat') });
+  try { localStorage.setItem('pmffar_events', JSON.stringify(events)); } catch(e) {}
+  closeEventModal();
+  renderCalendar();
+  showToast('✓ Acara ditambah: ' + nama);
+}
+
+// ---- PYQ ----
+function uploadPYQ() {
+  const file = document.getElementById('pyq-upload').files[0];
+  if (!file) return;
+  const kod = getVal('pyq-kod') || 'Tiada Kod';
+  const subjek = getVal('pyq-subjek') || file.name;
+  const tahun = getVal('pyq-tahun') || new Date().getFullYear();
+  const sem = document.getElementById('pyq-sem').value;
+  const entry = { id: Date.now(), nama: file.name, kod, subjek, tahun, sem, size: (file.size/1024).toFixed(1)+'KB' };
+  pyqFiles.unshift(entry);
+  try { localStorage.setItem('pmffar_pyq', JSON.stringify(pyqFiles)); } catch(e) {}
+  renderPYQ();
+  showToast('✓ Fail dimuat naik: ' + file.name);
+}
+
+function renderPYQ() {
+  const list = document.getElementById('pyq-list');
+  if (!pyqFiles.length) {
+    list.innerHTML = '<p style="color:var(--fg-muted);text-align:center;padding:40px 0">Tiada soalan dimuat naik lagi.</p>';
+    return;
+  }
+  // Render unique tags
+  const kods = [...new Set(pyqFiles.map(f=>f.kod))];
+  const tagEl = document.getElementById('pyq-tags');
+  tagEl.innerHTML = `<button class="pyq-tag active" onclick="filterPYQ('semua',this)">Semua</button>` +
+    kods.map(k=>`<button class="pyq-tag" onclick="filterPYQ('${k}',this)">${k}</button>`).join('');
+
+  list.innerHTML = pyqFiles.map(f=>`
+    <div class="pyq-card">
+      <div class="pyq-icon">📄</div>
+      <div class="pyq-info">
+        <h4>${f.subjek} — ${f.tahun}</h4>
+        <p>${f.kod} · ${f.sem} · ${f.size}</p>
+      </div>
+      <button class="btn btn-outline btn-sm" onclick="buangPYQ(${f.id})">🗑️</button>
+    </div>`).join('');
+}
+
+function filterPYQ(kod, btn) {
+  document.querySelectorAll('#pyq-tags .pyq-tag').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  const list = document.getElementById('pyq-list');
+  const filtered = kod==='semua' ? pyqFiles : pyqFiles.filter(f=>f.kod===kod);
+  if (!filtered.length) { list.innerHTML='<p style="color:var(--fg-muted);text-align:center;padding:40px 0">Tiada fail untuk kategori ini.</p>'; return; }
+  list.innerHTML = filtered.map(f=>`
+    <div class="pyq-card">
+      <div class="pyq-icon">📄</div>
+      <div class="pyq-info">
+        <h4>${f.subjek} — ${f.tahun}</h4>
+        <p>${f.kod} · ${f.sem} · ${f.size}</p>
+      </div>
+      <button class="btn btn-outline btn-sm" onclick="buangPYQ(${f.id})">🗑️</button>
+    </div>`).join('');
+}
+
+function buangPYQ(id) {
+  pyqFiles = pyqFiles.filter(f=>f.id!==id);
+  try { localStorage.setItem('pmffar_pyq', JSON.stringify(pyqFiles)); } catch(e) {}
+  renderPYQ();
+  showToast('Fail dibuang.');
+}
+</script>
+</body>
+</html>
+
+</body></html>
